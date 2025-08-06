@@ -28,31 +28,19 @@
 
 ## Запуск проекта
 
-### 1. Локальный запуск (без Docker)
+### Переменные окружения
 
-1. Установите PostgreSQL и создайте БД:
-```bash
-createdb equipment_db
+Создайте `.env` файл (пример):
+
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_NAME=equipment_db
+JWT_SECRET=your_secret
+SEED_TEST_DATA=true
 ```
-
-2. Запустите сервер:
-```bash
-go run cmd/server/main.go
-```
-
-Фронтенд будет доступен в `frontend/` (откройте `index.html` в браузере)
-
-### 2. Запуск через Docker
-
-```bash
-docker-compose up --build
-```
-
-После сборки:
-
-- API: http://localhost:8080
-- Фронтенд: http://localhost:8080/frontend/index.html
-- БД: PostgreSQL на localhost:5432
 
 ### Тестовые пользователи и данные
 
@@ -76,16 +64,28 @@ docker-compose up --build
 SEED_TEST_DATA=false
 ```
 
-### Переменные окружения
+### 1. Локальный запуск (без Docker)
 
-Создайте `.env` файл (пример):
+1. Установите PostgreSQL и создайте БД:
+```bash
+createdb equipment_db
+```
 
-```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_NAME=equipment_db
-JWT_SECRET=your_secret
-SEED_TEST_DATA=true
+2. Запустите сервер:
+```bash
+go run cmd/server/main.go
+```
+
+Фронтенд будет доступен в `frontend/` (откройте `index.html` в браузере)
+
+### 2. Запуск через Docker
+
+```bash
+docker-compose up --build
+```
+
+После сборки перейдите по:
+
+```
+http://localhost
 ```
