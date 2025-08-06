@@ -76,7 +76,7 @@ createdb equipment_db
 go run cmd/server/main.go
 ```
 
-Фронтенд будет доступен в `frontend/` (откройте `index.html` в браузере)
+Во избежание проблем с доступом CORS при локальном запуске рекомендуется использование "Live Server" для Visual Studio Code и "Live Edit" в ide от JetBrains, стандартные порты для соответсвующих ide добавлены в переменную AllowOrigins, в случае использования иного сервера добавте его домен в AllowOrigins вручную.
 
 ### 2. Запуск через Docker
 
@@ -84,7 +84,7 @@ go run cmd/server/main.go
 docker-compose up --build
 ```
 
-После сборки перейдите по:
+Сервер доступен по адресу:
 
 ```
 http://localhost
