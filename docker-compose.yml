@@ -1,17 +1,32 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:14
-    container_name: equipment_db
+  app:
+    build: .
+    container_name: equipment-manager
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - db
     environment:
-      POSTGRES_USER: ${DB_USER:-equipment_user}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-secure_password}
-      POSTGRES_DB: ${DB_NAME:-equipment_db}
+      - DB_HOST=db
+
+  db:
+    image: postgres:15-alpine
+    container_name: equipment-db
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data:
+  pgdata:

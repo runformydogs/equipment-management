@@ -20,6 +20,7 @@ type Device struct {
 	Location      string
 	Status        string `gorm:"default:'active'"`
 	NetworkNodeID *uint
+	NetworkNode   *NetworkNode `gorm:"foreignKey:NetworkNodeID"`
 	CreatedAt     time.Time
 	UpdatedAt     time.Time
 }
@@ -29,6 +30,8 @@ type NetworkNode struct {
 	Name        string `gorm:"not null"`
 	Description string
 	ParentID    *uint
+	Children    []NetworkNode `gorm:"foreignkey:ParentID"`
+	Devices     []Device      `gorm:"foreignkey:NetworkNodeID"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }

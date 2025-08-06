@@ -6,24 +6,26 @@ import (
 )
 
 type Config struct {
-	DBHost     string
-	DBPort     int
-	DBUser     string
-	DBPassword string
-	DBName     string
-	ServerPort string
-	JWTSecret  string
+	DBHost       string
+	DBPort       int
+	DBUser       string
+	DBPassword   string
+	DBName       string
+	ServerPort   string
+	JWTSecret    string
+	SeedTestData bool
 }
 
 func LoadConfig() *Config {
 	return &Config{
-		DBHost:     getEnv("DB_HOST", "localhost"),
-		DBPort:     getEnvAsInt("DB_PORT", 5432),
-		DBUser:     getEnv("DB_USER", "postgres"),
-		DBPassword: getEnv("DB_PASSWORD", ""),
-		DBName:     getEnv("DB_NAME", "equipment_db"),
-		ServerPort: getEnv("SERVER_PORT", "8080"),
-		JWTSecret:  getEnv("JWT_SECRET", "secret"),
+		DBHost:       getEnv("DB_HOST", "localhost"),
+		DBPort:       getEnvAsInt("DB_PORT", 5432),
+		DBUser:       getEnv("DB_USER", "postgres"),
+		DBPassword:   getEnv("DB_PASSWORD", "postgres"),
+		DBName:       getEnv("DB_NAME", "equipment_db"),
+		ServerPort:   getEnv("SERVER_PORT", "8080"),
+		JWTSecret:    getEnv("JWT_SECRET", "secret"),
+		SeedTestData: getEnvAsBool("SEED_TEST_DATA", false),
 	}
 }
 
@@ -37,6 +39,14 @@ func getEnv(key, defaultValue string) string {
 func getEnvAsInt(key string, defaultValue int) int {
 	strValue := getEnv(key, "")
 	if value, err := strconv.Atoi(strValue); err == nil {
+		return value
+	}
+	return defaultValue
+}
+
+func getEnvAsBool(key string, defaultValue bool) bool {
+	strValue := getEnv(key, "")
+	if value, err := strconv.ParseBool(strValue); err == nil {
 		return value
 	}
 	return defaultValue

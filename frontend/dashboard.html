@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Структура сети - Учет техники</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <h1>Структура сети и подключенная вычислительная техника</h1>
+    <button id="logout-btn" class="btn logout-btn">Выход</button>
+</header>
+
+<main class="dashboard-container">
+    <div class="panel left-panel">
+        <h2>Управление сетевыми узлами</h2>
+
+        <div class="form-section">
+            <h3>Добавить новый узел</h3>
+            <form id="add-node-form">
+                <div class="form-group">
+                    <label for="node-name">Название:</label>
+                    <input type="text" id="node-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="node-description">Описание:</label>
+                    <textarea id="node-description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="node-parent">Родительский узел:</label>
+                    <select id="node-parent">
+                        <option value="">(Корневой узел)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Добавить узел</button>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h3>Изменить узел</h3>
+            <form id="edit-node-form">
+                <div class="form-group">
+                    <label for="edit-node-id">Выберите узел:</label>
+                    <select id="edit-node-id">
+                        <option value="">-- Выберите узел --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-node-name">Новое название:</label>
+                    <input type="text" id="edit-node-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-node-description">Новое описание:</label>
+                    <textarea id="edit-node-description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-node-parent">Новый родитель:</label>
+                    <select id="edit-node-parent">
+                        <option value="">(Корневой узел)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Обновить узел</button>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h3>Удалить узел</h3>
+            <form id="delete-node-form">
+                <div class="form-group">
+                    <label for="delete-node-id">Выберите узел:</label>
+                    <select id="delete-node-id">
+                        <option value="">-- Выберите узел --</option>
+                    </select>
+                </div>
+                <div class="warning">
+                    Внимание! Все дочерние узлы и устройства будут перемещены на уровень выше.
+                </div>
+                <button type="submit" class="btn btn-danger">Удалить узел</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="tree-container" id="tree-container"></div>
+
+    <div class="panel right-panel">
+        <h2>Управление устройствами</h2>
+
+        <div class="form-section">
+            <h3>Добавить устройство</h3>
+            <form id="add-device-form">
+                <div class="form-group">
+                    <label for="device-type">Тип:</label>
+                    <input type="text" id="device-type" required>
+                </div>
+                <div class="form-group">
+                    <label for="device-vendor">Производитель:</label>
+                    <input type="text" id="device-vendor">
+                </div>
+                <div class="form-group">
+                    <label for="device-model">Модель:</label>
+                    <input type="text" id="device-model" required>
+                </div>
+                <div class="form-group">
+                    <label for="device-serial">Серийный номер:</label>
+                    <input type="text" id="device-serial" required>
+                </div>
+                <div class="form-group">
+                    <label for="device-location">Расположение:</label>
+                    <input type="text" id="device-location">
+                </div>
+                <div class="form-group">
+                    <label for="device-node">Сетевой узел:</label>
+                    <select id="device-node">
+                        <option value="">(Не назначено)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Добавить устройство</button>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h3>Изменить устройство</h3>
+            <form id="edit-device-form">
+                <div class="form-group">
+                    <label for="edit-device-id">Выберите устройство:</label>
+                    <select id="edit-device-id">
+                        <option value="">-- Выберите устройство --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-device-type">Тип:</label>
+                    <input type="text" id="edit-device-type">
+                </div>
+                <div class="form-group">
+                    <label for="edit-device-vendor">Производитель:</label>
+                    <input type="text" id="edit-device-vendor">
+                </div>
+                <div class="form-group">
+                    <label for="edit-device-model">Модель:</label>
+                    <input type="text" id="edit-device-model">
+                </div>
+                <div class="form-group">
+                    <label for="edit-device-serial">Серийный номер:</label>
+                    <input type="text" id="edit-device-serial">
+                </div>
+                <div class="form-group">
+                    <label for="edit-device-location">Расположение:</label>
+                    <input type="text" id="edit-device-location">
+                </div>
+                <div class="form-group">
+                    <label for="edit-device-node">Сетевой узел:</label>
+                    <select id="edit-device-node">
+                        <option value="">(Не назначено)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Обновить устройство</button>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h3>Удалить устройство</h3>
+            <form id="delete-device-form">
+                <div class="form-group">
+                    <label for="delete-device-id">Выберите устройство:</label>
+                    <select id="delete-device-id">
+                        <option value="">-- Выберите устройство --</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-danger">Удалить устройство</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script src="js/auth.js"></script>
+<script src="js/api.js"></script>
+<script src="js/crud.js"></script>
+<script type="module">
+    import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7/+esm';
+    window.d3 = d3;
+</script>
+<script type="module" src="js/tree.js"></script>
+</body>
+</html>

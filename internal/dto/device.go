@@ -22,12 +22,12 @@ type UpdateDeviceRequest struct {
 type DeviceResponse struct {
 	ID            uint   `json:"id"`
 	Type          string `json:"type"`
-	Vendor        string `json:"vendor"`
+	Vendor        string `json:"vendor,omitempty"`
 	Model         string `json:"model"`
-	Serial        string `json:"serial"`
-	Location      string `json:"location"`
+	Serial        string `json:"serial,omitempty"`
+	Location      string `json:"location,omitempty"`
 	Status        string `json:"status"`
 	NetworkNodeID *uint  `json:"network_node_id,omitempty"`
-	CreatedAt     string `json:"created_at"`
-	UpdatedAt     string `json:"updated_at"`
+	CreatedAt     string `json:"created_at,omitempty"`
+	UpdatedAt     string `json:"updated_at,omitempty"`
 }
