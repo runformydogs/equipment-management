@@ -1,32 +1,52 @@
+# equipment-manager/docker-compose.yml
 version: '3.8'
 
 services:
-  app:
-    build: .
-    container_name: equipment-manager
-    restart: unless-stopped
+  db:
+    image: postgres:13
+    container_name: equipment_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: equipment_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: equipment_backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: equipment_db
+      SERVER_PORT: 8080
+      JWT_SECRET: "your_secure_secret"
+      SEED_TEST_DATA: "true"
     ports:
       - "8080:8080"
-    env_file:
-      - .env
-    depends_on:
-      - db
-    environment:
-      - DB_HOST=db
 
-  db:
-    image: postgres:15-alpine
-    container_name: equipment-db
-    env_file:
-      - .env
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: equipment_frontend
+    depends_on:
+      - backend
     ports:
-      - "5432:5432"
+      - "80:80"
 
 volumes:
-  pgdata:
+  postgres_data:
